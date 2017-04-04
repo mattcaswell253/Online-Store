@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Album } from './album.model';
-import { ALBUMS } from './mock-albums';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Injectable()
@@ -16,12 +15,12 @@ export class AlbumService {
     return this.albums;
   }
 
-  getAlbumId(albumId: number){
-    for (var i = 0; i <= ALBUMS.length - 1; i++) {
-      if (ALBUMS[i].id === albumId) {
-        return ALBUMS[i];
-      }
-    }
+  addAlbum(newAlbum: Album) {
+    this.albums.push(newAlbum);
+  }
+
+  getAlbumId(albumId: string){
+    return this.angularFire.database.object('albums/' + albumId);
   }
 
 }
