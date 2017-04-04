@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Album } from '../album.model';
 import { Router } from '@angular/router';
+import { AlbumService } from '../album.service';
 
 @Component({
   selector: 'app-marketplace',
@@ -8,14 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./marketplace.component.css'],
   providers: [AlbumService]
 })
-export class MarketplaceComponent {
+
+export class MarketplaceComponent implements OnInit {
+  albums: Album[];
 
   constructor(private router: Router, private albumService: AlbumService){}
 
-  albums: Album[];
+  ngOnInit(){
+    this.albums = this.albumService.getAlbums();
+  }
 
 goToDetailPage(clickedAlbum: Album) {
   this.router.navigate(['albums', clickedAlbum.id]);
-};
-
+  };
 }
