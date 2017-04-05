@@ -20,7 +20,15 @@ export class AlbumService {
   }
 
   getAlbumId(albumId: string){
-    return this.angularFire.database.object('albums/' + albumId);
+    return this.angularFire.database.object('/albums/' + albumId);
+  }
+
+
+  updateAlbum(localUpdatedAlbum){
+    var albumEntryInFirebase = this.getAlbumId(localUpdatedAlbum.$key);
+    albumEntryInFirebase.update({title: localUpdatedAlbum.title,
+                                artist: localUpdatedAlbum.artist,
+                                description: localUpdatedAlbum.description});
   }
 
 }
